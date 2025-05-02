@@ -55,10 +55,10 @@ vim.api.nvim_set_hl(0, "StatusLineDiffSub",         { fg = "#eb6f92", bg = "#5e8
 
 local statusline_mode_map = {
   ['n']     = 'NORMAL',
-  ['no']    = 'O-PENDING',
-  ['nov']   = 'O-PENDING',
-  ['noV']   = 'O-PENDING',
-  ['no\22'] = 'O-PENDING',
+  ['no']    = 'O-PEND',
+  ['nov']   = 'O-PEND',
+  ['noV']   = 'O-PEND',
+  ['no\22'] = 'O-PEND',
   ['niI']   = 'NORMAL',
   ['niR']   = 'NORMAL',
   ['niV']   = 'NORMAL',
