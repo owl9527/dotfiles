@@ -1,13 +1,14 @@
-vim.opt.number = true
+vim.opt.number         = true
 vim.opt.relativenumber = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.termguicolors = true
-vim.opt.showmode = false
-vim.opt.signcolumn = "yes"
+vim.opt.autoindent     = true
+vim.opt.smartindent    = true
+vim.opt.tabstop        = 2
+vim.opt.shiftwidth     = 2
+vim.opt.expandtab      = true
+vim.opt.termguicolors  = true
+vim.opt.showmode       = false
+vim.opt.pumwidth       = 0
+vim.opt.signcolumn     = "yes"
 vim.opt.completeopt:append({ "menuone", "noselect" })
 vim.cmd("colorscheme nightfox")
 
@@ -52,6 +53,8 @@ vim.api.nvim_set_hl(0, "StatusLineDiagnosticHint",  { fg = "#81b29a", bg = "#2e3
 vim.api.nvim_set_hl(0, "StatusLineBranchName",      { fg = "#d8dee9", bg = "#5e81ac" })
 vim.api.nvim_set_hl(0, "StatusLineDiffAdd",         { fg = "#f6c177", bg = "#5e81ac" })
 vim.api.nvim_set_hl(0, "StatusLineDiffSub",         { fg = "#eb6f92", bg = "#5e81ac" })
+vim.api.nvim_set_hl(0, "StatusLineL",               { fg = "#232136", bg = "#c4a7e7" })
+vim.api.nvim_set_hl(0, "StatusLineP",               { fg = "#232136", bg = "#3e8fb0" })
 
 local statusline_mode_map = {
   ['n']     = 'NORMAL',
@@ -122,7 +125,7 @@ statusline_git_branch_update = function()
   local branch_name = string.match(first_line, "ref: refs/heads/(.*)")
   fd:close()
 
-  statusline_git_branch_text = " branch:" .. (branch_name or string.sub(first_line, 1, 7)) .. " "
+  statusline_git_branch_text = "  " .. (branch_name or string.sub(first_line, 1, 7)) .. " "
 end
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost" }, { callback = statusline_git_branch_update })
@@ -155,4 +158,4 @@ statusline_git_diff = function(_)
   return (statusline_git_diff_num[_] and statusline_git_diff_num[_] ~= "0") and " " .. string.char(41 + _ * 2) .. statusline_git_diff_num[_] .. " " or ""
 end
 
-vim.opt.statusline = "%#StatusLineMode# %{v:lua.statusline_mode()} %#StatusLine#%#StatusLineBranchName#%{v:lua.statusline_git_branch()}%#StatusLine#%#StatusLineDiffAdd#%{v:lua.statusline_git_diff(1)}%#StatusLineDiffSub#%{v:lua.statusline_git_diff(2)}%#StatusLineDiagnosticError#%{v:lua.statusline_diagnostics_have()}%{v:lua.statusline_diagnostics(1)}%#StatusLineDiagnosticWarn#%{v:lua.statusline_diagnostics(2)}%#StatusLineDiagnosticInfo#%{v:lua.statusline_diagnostics(3)}%#StatusLineDiagnosticHint#%{v:lua.statusline_diagnostics(4)}%#StatusLine# %f %h%w%m%r%=%l,%c%V %P"
+vim.opt.statusline = "%#StatusLineMode# %{v:lua.statusline_mode()} %#StatusLine#%#StatusLineBranchName#%{v:lua.statusline_git_branch()}%#StatusLine#%#StatusLineDiffAdd#%{v:lua.statusline_git_diff(1)}%#StatusLineDiffSub#%{v:lua.statusline_git_diff(2)}%#StatusLineDiagnosticError#%{v:lua.statusline_diagnostics_have()}%{v:lua.statusline_diagnostics(1)}%#StatusLineDiagnosticWarn#%{v:lua.statusline_diagnostics(2)}%#StatusLineDiagnosticInfo#%{v:lua.statusline_diagnostics(3)}%#StatusLineDiagnosticHint#%{v:lua.statusline_diagnostics(4)}%#StatusLine# %f %h%w%m%r%=%#StatusLineL# %l,%c%V %#StatusLineP# %P "
