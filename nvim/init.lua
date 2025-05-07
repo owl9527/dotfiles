@@ -1,9 +1,9 @@
 vim.opt.number         = true
 vim.opt.relativenumber = true
 vim.opt.autoindent     = true
-vim.opt.smartindent    = true
-vim.opt.tabstop        = 2
-vim.opt.shiftwidth     = 2
+vim.opt.cindent        = true
+vim.opt.tabstop        = 3
+vim.opt.shiftwidth     = 3
 vim.opt.expandtab      = true
 vim.opt.termguicolors  = true
 vim.opt.showmode       = false
@@ -45,7 +45,7 @@ vim.lsp.enable({ "clangd", "ts_ls" })
 
 vim.api.nvim_create_autocmd("ModeChanged", { command = "redrawstatus" })
 
-vim.api.nvim_set_hl(0, "StatusLineMode",            { fg = "#2e3440", bg = "#81a1c1" })
+vim.api.nvim_set_hl(0, "StatusLineMode",            { fg = "#232136", bg = "#c4a7e7" })
 vim.api.nvim_set_hl(0, "StatusLineDiagnosticError", { fg = "#c94f6d", bg = "#2e3440" })
 vim.api.nvim_set_hl(0, "StatusLineDiagnosticWarn",  { fg = "#dbc074", bg = "#2e3440" })
 vim.api.nvim_set_hl(0, "StatusLineDiagnosticInfo",  { fg = "#719cd6", bg = "#2e3440" })
@@ -53,7 +53,7 @@ vim.api.nvim_set_hl(0, "StatusLineDiagnosticHint",  { fg = "#81b29a", bg = "#2e3
 vim.api.nvim_set_hl(0, "StatusLineBranchName",      { fg = "#d8dee9", bg = "#5e81ac" })
 vim.api.nvim_set_hl(0, "StatusLineDiffAdd",         { fg = "#f6c177", bg = "#5e81ac" })
 vim.api.nvim_set_hl(0, "StatusLineDiffSub",         { fg = "#eb6f92", bg = "#5e81ac" })
-vim.api.nvim_set_hl(0, "StatusLineL",               { fg = "#232136", bg = "#c4a7e7" })
+vim.api.nvim_set_hl(0, "StatusLineL",               { fg = "#232136", bg = "#81a1c1" })
 vim.api.nvim_set_hl(0, "StatusLineP",               { fg = "#232136", bg = "#3e8fb0" })
 
 local statusline_mode_map = {
