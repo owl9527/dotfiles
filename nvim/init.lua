@@ -15,30 +15,45 @@ vim.cmd("colorscheme habamax")
 vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.hl.on_yank() end })
 
 vim.lsp.config("clangd", {
-  cmd = {
-    "clangd",
-    "--background-index",
-    "--header-insertion=never",
-    "--header-insertion-decorators=0",
-    "--completion-style=bundled",
-    "--function-arg-placeholders=0"
-  },
-  root_markers = { ".git", "CMakeLists.txt", "Makefile", "compile_commands.json" },
-  filetypes = { "c", "cpp" }
+   cmd = {
+      "clangd",
+      "--background-index",
+      "--header-insertion=never",
+      "--header-insertion-decorators=0",
+      "--completion-style=bundled",
+      "--function-arg-placeholders=0"
+   },
+   root_markers = { ".git", "CMakeLists.txt", "Makefile", "compile_commands.json" },
+   filetypes = { "c", "cpp" }
 })
 
 vim.lsp.config("ts_ls", {
-  cmd = { "typescript-language-server", "--stdio" },
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx"
-  },
-  root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-  single_file_support = true
+   cmd = { "typescript-language-server", "--stdio" },
+   filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx"
+   },
+   root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+   single_file_support = true
 })
 
-vim.lsp.enable({ "clangd", "ts_ls" })
+vim.lsp.config("pyright", {
+   cmd = { "pyright-langserver", "--stdio" },
+   root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" },
+   filetypes = { "python" },
+   settings = {
+      python = {
+         analysis = {
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+            diagnosticMode = "openFilesOnly"
+         }
+      }
+   }
+})
+
+vim.lsp.enable({ "clangd", "ts_ls", "pyright" })
