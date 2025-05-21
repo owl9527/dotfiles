@@ -1,0 +1,98 @@
+{
+   "inbounds": [
+      {
+         "type": "mixed",
+         "set_system_proxy": true,
+         "listen_port": 10000
+      }
+   ],
+   "outbounds": [
+      {
+         "tag": "proxy"
+      },
+      {
+         "tag": "direct",
+         "type": "direct"
+      }
+   ],
+   "dns": {
+      "strategy": "ipv4_only",
+      "servers": [
+         {
+            "address": "https://1.1.1.1/dns-query"
+         },
+         {
+            "tag": "dns_system",
+            "address": "local"
+         }
+      ],
+      "rules": [
+         {
+            "outbound": "any",
+            "server": "dns_system"
+         }
+      ]
+   },
+   "route": {
+      "rules": [
+         {
+            "ip_is_private": true,
+            "outbound": "direct"
+         },
+         {
+            "rule_set": [
+               "geosite-apple",
+               "geosite-google",
+               "geosite-microsoft"
+            ],
+            "outbound": "proxy"
+         },
+         {
+            "rule_set": "geosite-cn",
+            "outbound": "direct"
+         },
+         {
+            "action": "resolve"
+         },
+         {
+            "rule_set": "geoip-cn",
+            "outbound": "direct"
+         }
+      ],
+      "rule_set": [
+         {
+            "tag": "geosite-apple",
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple.srs"
+         },
+         {
+            "tag": "geosite-google",
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-google.srs"
+         },
+         {
+            "tag": "geosite-microsoft",
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-microsoft.srs"
+         },
+         {
+            "tag": "geosite-cn",
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs"
+         },
+         {
+            "tag": "geoip-cn",
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs"
+         }
+      ]
+   },
+   "experimental": {
+      "cache_file": {
+         "enabled": true
+      }
+   },
+   "log": {
+      "timestamp": true
+   }
+}
