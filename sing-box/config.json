@@ -8,7 +8,16 @@
    ],
    "outbounds": [
       {
-         "tag": "proxy"
+         "tag": "proxy",
+         "type": "trojan",
+         "server": "",
+         "server_port": 0,
+         "password": "",
+         "tls": {
+            "enabled": true,
+            "server_name": "",
+            "insecure": true
+         }
       },
       {
          "tag": "direct",
@@ -19,17 +28,20 @@
       "strategy": "ipv4_only",
       "servers": [
          {
-            "address": "https://1.1.1.1/dns-query"
+            "address": "https://dns.google/dns-query",
+            "address_resolver": "dns_ali",
+            "address_strategy": "ipv4_only"
          },
          {
-            "tag": "dns_system",
-            "address": "local"
+            "tag": "dns_ali",
+            "address": "223.5.5.5",
+            "detour": "direct"
          }
       ],
       "rules": [
          {
             "outbound": "any",
-            "server": "dns_system"
+            "server": "dns_ali"
          }
       ]
    },
@@ -86,13 +98,5 @@
             "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs"
          }
       ]
-   },
-   "experimental": {
-      "cache_file": {
-         "enabled": true
-      }
-   },
-   "log": {
-      "timestamp": true
    }
 }
