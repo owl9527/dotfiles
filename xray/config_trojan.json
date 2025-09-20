@@ -1,0 +1,65 @@
+{
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 0,
+            "protocol": "socks",
+            "settings": {
+                "udp": true
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "proxy",
+            "protocol": "trojan",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "",
+                        "port": 0,
+                        "password": ""
+                    }
+                ]
+            },
+            "streamSettings": {
+                "security": "tls",
+                "tlsSettings": {
+                    "serverName": "",
+                    "allowInsecure": true
+                }
+            }
+        },
+        {
+            "tag": "direct",
+            "protocol": "freedom"
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private",
+                    "geoip:cn"
+                ],
+                "outboundTag": "direct"
+            },
+            {
+                "domain": [
+                    "geosite:google",
+                    "geosite:apple",
+                    "geosite:paypal",
+                    "geosite:microsoft"
+                ],
+                "outboundTag": "proxy"
+            },
+            {
+                "domain": [
+                    "geosite:cn",
+                    "geosite:private"
+                ],
+                "outboundTag": "direct"
+            }
+        ]
+    }
+}
